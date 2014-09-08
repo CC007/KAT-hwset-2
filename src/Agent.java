@@ -99,7 +99,8 @@ class Agent {
 
     // Gather food from the site.
     public void reap(Site s) {
-    	
+    	this.energy += s.getFood();
+        s.setFood(0.0);
     }
 
     // Below are functions we already created for you. You can change
