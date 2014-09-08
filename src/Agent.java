@@ -94,7 +94,10 @@ class Agent {
     // the new Site the agent has arrived, and the agent itself its
     // new location...). Make use of the moveCost variable as well.
     public void move(Site newSite) {
-        
+        sim.grid[this.xPosition][this.yPosition].setAgent(null);
+        this.xPosition = newSite.getXPosition();
+        this.yPosition = newSite.getYPosition();
+        newSite.setAgent(this); 
     }
 
     // Gather food from the site.
