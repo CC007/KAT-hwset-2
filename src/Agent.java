@@ -75,16 +75,26 @@ class Agent {
     public Site findBestSite(Vector<Site> freeSites) {
     	// Your own code determining what the best Site is of all
     	// possible freeSites for the agent to move to;
-
+        Iterator<Site> i = freeSites.iterator();
+        Site bestSite = new Site();
+        if(i.hasNext()){
+            bestSite = i.next();
+        }
+        while(i.hasNext()){
+           Site freeSite = i.next();
+           if(freeSite.getFood()>bestSite.getFood()){
+               bestSite = freeSite;
+           }
+        }
     	// Then return the best Site.
-    	return new Site();
+    	return bestSite;
     }
 
     // Move to the new site. (Tell the old Site the agent has left,
     // the new Site the agent has arrived, and the agent itself its
     // new location...). Make use of the moveCost variable as well.
     public void move(Site newSite) {
-    
+        
     }
 
     // Gather food from the site.
