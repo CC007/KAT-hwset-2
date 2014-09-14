@@ -19,7 +19,7 @@ class Site {
     // Called once every step; determines the growback.
     // Be creative. You can add new parameters, for example.
     public void grow() {
-    	
+    	food += (foodMax-food)*0.3;
     }
 
     // Use the getFood and setFood methods to let an
