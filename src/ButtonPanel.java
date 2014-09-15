@@ -134,7 +134,7 @@ public class ButtonPanel extends JPanel implements ActionListener {
 
 		if ("restart".equals(e.getActionCommand())) {
 			scape.frame.dispose();
-			scape.run();
+                        new Simulation().run();
 		}
 
 		if ("exit".equals(e.getActionCommand())) {
