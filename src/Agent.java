@@ -96,6 +96,7 @@ class Agent {
         sim.grid[this.xPosition][this.yPosition].setAgent(null);
         this.xPosition = newSite.getXPosition();
         this.yPosition = newSite.getYPosition();
+        energy -= moveCost;
         newSite.setAgent(this);
     }
 
