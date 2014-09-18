@@ -77,14 +77,14 @@ class Agent {
         Iterator<Site> i = freeSites.iterator();
         Site bestSite = new Site();
         double gain = Double.NEGATIVE_INFINITY;
-        double newGain = Double.NEGATIVE_INFINITY;
+        double newGain;
         if (i.hasNext()) {
             bestSite = i.next();
-            gain = bestSite.getFood() - moveCost*Math.sqrt(Math.pow(Math.abs(this.xPosition-bestSite.getXPosition()), 2) + Math.pow(Math.abs(this.yPosition-bestSite.getYPosition()), 2));
+            gain = bestSite.getFood() - moveCost*pythagoras(this.xPosition, bestSite.getXPosition(), this.yPosition, bestSite.getYPosition());
         }
         while (i.hasNext()) {
             Site freeSite = i.next();
-            newGain = freeSite.getFood()-moveCost*Math.sqrt(Math.pow(Math.abs(this.xPosition-freeSite.getXPosition()), 2) + Math.pow(Math.abs(this.yPosition-freeSite.getYPosition()), 2));
+            newGain = freeSite.getFood()-moveCost*pythagoras(this.xPosition, freeSite.getXPosition(), this.yPosition, freeSite.getYPosition());
             if (newGain > gain) {
                 bestSite = freeSite;
                 gain = newGain;
@@ -99,7 +99,7 @@ class Agent {
     // new location...). Make use of the moveCost variable as well.
     public void move(Site newSite) {
         sim.grid[this.xPosition][this.yPosition].setAgent(null);
-        energy -= moveCost*Math.sqrt(Math.pow(Math.abs(this.xPosition-newSite.getXPosition()), 2) + Math.pow(Math.abs(this.yPosition-newSite.getYPosition()), 2));
+        energy -= moveCost*pythagoras(this.xPosition, newSite.getXPosition(), this.yPosition, newSite.getYPosition());
         this.xPosition = newSite.getXPosition();
         this.yPosition = newSite.getYPosition();
         
@@ -201,5 +201,9 @@ class Agent {
 
     public int getAge() {
         return age;
+    }
+    
+    private double pythagoras(int x1, int x2, int y1, int y2){
+        return Math.sqrt(Math.pow(Math.abs(x1-x2), 2) + Math.pow(Math.abs(y1-y2), 2));
     }
 }
