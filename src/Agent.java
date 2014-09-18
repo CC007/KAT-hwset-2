@@ -76,13 +76,18 @@ class Agent {
         // possible freeSites for the agent to move to;
         Iterator<Site> i = freeSites.iterator();
         Site bestSite = new Site();
+        double gain = Double.NEGATIVE_INFINITY;
+        double newGain = Double.NEGATIVE_INFINITY;
         if (i.hasNext()) {
             bestSite = i.next();
+            gain = bestSite.getFood() - moveCost*Math.sqrt(Math.pow(Math.abs(this.xPosition-bestSite.getXPosition()), 2) + Math.pow(Math.abs(this.yPosition-bestSite.getYPosition()), 2));
         }
         while (i.hasNext()) {
             Site freeSite = i.next();
-            if (freeSite.getFood() > bestSite.getFood()) {
+            newGain = freeSite.getFood()-moveCost*Math.sqrt(Math.pow(Math.abs(this.xPosition-freeSite.getXPosition()), 2) + Math.pow(Math.abs(this.yPosition-freeSite.getYPosition()), 2));
+            if (newGain > gain) {
                 bestSite = freeSite;
+                gain = newGain;
             }
         }
         // Then return the best Site.
@@ -94,9 +99,10 @@ class Agent {
     // new location...). Make use of the moveCost variable as well.
     public void move(Site newSite) {
         sim.grid[this.xPosition][this.yPosition].setAgent(null);
+        energy -= moveCost*Math.sqrt(Math.pow(Math.abs(this.xPosition-newSite.getXPosition()), 2) + Math.pow(Math.abs(this.yPosition-newSite.getYPosition()), 2));
         this.xPosition = newSite.getXPosition();
         this.yPosition = newSite.getYPosition();
-        energy -= moveCost;
+        
         newSite.setAgent(this);
     }
 
